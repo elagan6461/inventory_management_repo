@@ -1,0 +1,15 @@
+Inventory Management System (For a Cat Product Warehouse)
+
+Create/Add new products (name, price, category,..)
+Update products information
+Delete products from page
+Display all products
+Display one products
+
+Members:
+Angela Monroig
+Christian Yi
+Elaina Gantan
+
+Github Repo Link:
+https://github.com/elagan6461/inventory_management_repo
