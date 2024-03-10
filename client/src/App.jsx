@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import axios from 'axios'
 
 import './App.css'
 
-import Home from './components/Home'
-import InventoryList from './components/inventoryList'
-import SearchInventory from './components/searchInventory'
-import UpdateItem from './components/updateItem'
-import AddItem from './components/addItem'
+import Home from '/components/home.jsx'
+import InventoryList from '/components/inventoryList'
+import SearchInventory from '/components/searchInventory'
+import UpdateItem from '/components/updateItem'
+import AddItem from '/components/addItem'
 
 function App() {
   const [inventory, setInventory] = useState()
