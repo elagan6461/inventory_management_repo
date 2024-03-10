@@ -1,0 +1,17 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const Home = (props) => {
+    const {inventory, setInventory} = props;
+
+    return (
+        <>
+        <h1>Inventory Tracker</h1>
+        <Link to='/inventoryList'>Full Inventory List</Link>
+        <Link to='/searchInventory'>Search Inventory</Link>
+        <!-- can't put edit button here because there is no item id number to send ... an item must be selected before the edit page can be displayed ... edit buttons are on inventoryList.html and searchInventory.html -->
+        <Link to='/addItem'>Add Item</Link>
+        </>
+    );
+}
+export default Home;

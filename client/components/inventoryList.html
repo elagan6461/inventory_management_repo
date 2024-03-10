@@ -1,0 +1,58 @@
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+const InventoryList = (props) => {
+    const navigate = useNavigate();
+    const { inventory, setInventory } = props;
+    
+    const deleteItem = (id) => {
+        axios.delete('http://localhost:8000/api/deleteItem/' + id)
+            .then(res => {
+                console.log(`${title} was deleted`);
+                setInventory(inventory.filter(item => id!=item._id));
+            })
+            .catch(err => console.log('inventoryList deleteItem err: ', err))
+    }
+
+    return (
+        <>
+            <h3>Current Inventory:</h3>
+            <nav>
+                <Link to='/home'>Home</Link>
+                <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** -->
+                <Link to='/inventoryList' disabled>Inventory List</Link>
+                <Link to='/searchInventory'>Search</Link>
+                <Link to='/addItem'>Add Item</Link>
+            </nav>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {inventory.map((item) => {
+                        return (
+                            <tr key={item._id}>
+                                <td>{item.title}</td>
+                                <td>{item.description}</td>
+                                <td>{item.quantity}</td>
+                                <td>
+                                    <Link to={`/updateItem/${item._id}`}>Edit</Link>
+                                    <button onClick="(e) => deleteItem(item._id)">Delete</button>
+                                </td>
+                            </tr>
+                            </div>
+                        )
+                    })}
+                </tbody>
+            </table> 
+        </>
+    );
+}
+export default InventoryList;
