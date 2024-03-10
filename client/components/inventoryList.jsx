@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const InventoryList = (props) => {
-    const navigate = useNavigate();
     const { inventory, setInventory } = props;
     
     const deleteItem = (id) => {
@@ -17,21 +16,21 @@ const InventoryList = (props) => {
 
     return (
         <>
-            <h3>Current Inventory:</h3>
+            <h1>Current Inventory:</h1>
             <nav>
-                <Link to='/home'>Home</Link>
+                <Link to='/home' className='look_like_a_button'>Home</Link>
                 {/* <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** --> */}
-                <Link to='/inventoryList' disabled>Inventory List</Link>
-                <Link to='/searchInventory'>Search</Link>
-                <Link to='/addItem'>Add Item</Link>
+                <Link to='/inventoryList' disabled className='disabled_button'>Inventory List</Link>
+                <Link to='/searchInventory' className='look_like_a_button'>Search</Link>
+                <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
             </nav>
             
-            <table>
+            <table id='inventory_list'>
                 <thead>
                     <tr>
                         <th>Item</th>
                         <th>Description</th>
-                        <th>Quantity</th>
+                        <th>Stock</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -43,8 +42,8 @@ const InventoryList = (props) => {
                                 <td>{item.description}</td>
                                 <td>{item.quantity}</td>
                                 <td>
-                                    <Link to={`/updateItem/${item._id}`}>Edit</Link>
-                                    <button onClick="{(e) => deleteItem(item._id)}">Delete</button>
+                                    <Link to={`/updateItem/${item._id}`}className='look_like_a_button'>Edit</Link>
+                                    <button onClick="{(e) => deleteItem(item._id)}" className='look_like_a_button'>Delete</button>
                                 </td>
                             </tr>
                         )

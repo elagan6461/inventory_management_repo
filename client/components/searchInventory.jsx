@@ -18,7 +18,7 @@ const SearchInventory = (props) => {
 
     const searchForItem = (e) =>{
         axios.post('http://localhost:8000/api/findOneItem'+ title)
-            .then(res => {setItem([res.data]);
+            .then(res => {setItem(res.data);
                             setTitle('item name');
                         })
             .catch(err => {console.log('searchInventory searchForItem err: ', err);})
@@ -47,7 +47,7 @@ const SearchInventory = (props) => {
             <p>Quantity: {item.quantity}</p>
             
             <Link to={`/updateItem/${item._id}`}>Edit</Link>
-            <button onClick="(e) => deleteItem(item._id)">Delete</button>
+            <button onClick={(e) => deleteItem(item._id)}>Delete</button>
         </div>
         </>
     )

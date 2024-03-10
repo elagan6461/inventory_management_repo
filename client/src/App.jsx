@@ -15,7 +15,7 @@ function App() {
 
   //get all inventory    
   useEffect(() => {
-    axios.get("http://localhost:8000/api/allInventory")
+    axios.get("http://localhost:8000/api/allItems")
         .then((res) => {
             setInventory(res.data);
         })
