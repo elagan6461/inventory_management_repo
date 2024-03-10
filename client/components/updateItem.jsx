@@ -39,6 +39,7 @@ const UpdateItem = (props) => {
                         setQuantity(0);})
                 .catch(err => {console.log('updateItem updateItem err: ', err)})
         }
+    }
             
     const deleteItem = (id) => {
         axios.delete('http://localhost:8000/api/deleteItem/' + id)

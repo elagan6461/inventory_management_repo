@@ -30,11 +30,11 @@ const AddItem = (props) => {
         <>
         <h3>Add An Item</h3>
         <nav>
-            <Link to='/home'>Home</Link>
-            <Link to='/inventoryList'>Inventory List</Link>
-            <Link to='/searchInventory'>Search</Link>
-            <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** -->
-            <Link to='/addItem' disabled>Add Item</Link>
+            <Link to={'/home'}>Home</Link>
+            <Link to={'/inventoryList'}>Inventory List</Link>
+            <Link to={'/searchInventory'}>Search</Link>
+            {/* disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** */}
+            <Link to={'/addItem'} disabled>Add Item</Link>
         </nav>
 
         <form onSubmit={createNewItem}>
