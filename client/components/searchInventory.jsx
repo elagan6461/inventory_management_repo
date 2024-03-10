@@ -31,14 +31,14 @@ const SearchInventory = (props) => {
         <nav>
             <Link to='/home'>Home</Link>
             <Link to='/inventoryList'>Inventory List</Link>
-            <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** -->
+            {/* <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** --> */}
             <Link to='/searchInventory' disabled>Search</Link>
             <Link to='/addItem'>Add Item</Link>
         </nav>
 
         <form onSubmit={searchForItem}>
             <label for="title">Search for </label>
-            <input type="text" name="title" value={title}>
+            <input type="text" name="title" value={title}/>
             <button>Search</button>
         </form>
 
@@ -47,7 +47,7 @@ const SearchInventory = (props) => {
             <p>Description: {item.description}</p>
             <p>Quantity: {item.quantity}</p>
             
-            <Link to=`/updateItem/${item._id}`>Edit</Link>
+            <Link to={`/updateItem/${item._id}`}>Edit</Link>
             <button onClick="(e) => deleteItem(item._id)">Delete</button>
         </div>
         </>

@@ -20,7 +20,7 @@ const InventoryList = (props) => {
             <h3>Current Inventory:</h3>
             <nav>
                 <Link to='/home'>Home</Link>
-                <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** -->
+                {/* <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** --> */}
                 <Link to='/inventoryList' disabled>Inventory List</Link>
                 <Link to='/searchInventory'>Search</Link>
                 <Link to='/addItem'>Add Item</Link>
@@ -44,10 +44,9 @@ const InventoryList = (props) => {
                                 <td>{item.quantity}</td>
                                 <td>
                                     <Link to={`/updateItem/${item._id}`}>Edit</Link>
-                                    <button onClick="(e) => deleteItem(item._id)">Delete</button>
+                                    <button onClick="{(e) => deleteItem(item._id)}">Delete</button>
                                 </td>
                             </tr>
-                            </div>
                         )
                     })}
                 </tbody>
