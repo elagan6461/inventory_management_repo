@@ -17,7 +17,6 @@ const SearchInventory = (props) => {
     }
 
     const searchForItem = (e) =>{
-        <!-- preventDefault?                        -------------------            ** FIX BEFORE SUBMIT ** -->
         axios.post('http://localhost:8000/api/findOneItem'+ title)
             .then(res => {setItem([res.data]);
                             setTitle('item name');
