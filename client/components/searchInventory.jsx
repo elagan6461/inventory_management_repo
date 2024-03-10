@@ -30,19 +30,19 @@ const SearchInventory = (props) => {
 
     return (
         <>
-        <h3>Find an Item</h3>
+        <h1>Find an Item</h1>
         <nav>
-            <Link to='/home'>Home</Link>
-            <Link to='/inventoryList'>Inventory List</Link>
+            <Link to='/home' className='look_like_a_button'>Home</Link>
+            <Link to='/inventoryList' className='look_like_a_button'>Inventory List</Link>
             {/* <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** --> */}
-            <Link to='/searchInventory' disabled>Search</Link>
-            <Link to='/addItem'>Add Item</Link>
+            <Link to='/searchInventory' disabled className='disabled_button'>Search</Link>
+            <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
         </nav>
 
         <form onSubmit={searchForItem}>
             <label htmlFor="title">Search for </label>
             <input type="text" name="title" value={title} onChange={e=>setTitle(e.target.value)}/>
-            <button>Search</button>
+            <button className='look_like_a_button'>Search</button>
         </form>
 
         <div>
