@@ -43,7 +43,7 @@ const InventoryList = (props) => {
                                 <td>{item.quantity}</td>
                                 <td>
                                     <Link to={`/updateItem/${item._id}`}className='look_like_a_button'>Edit</Link>
-                                    <button onClick="{(e) => deleteItem(item._id)}" className='look_like_a_button'>Delete</button>
+                                    <button onClick={(e) => deleteItem(item._id)} className='look_like_a_button'>Delete</button>
                                 </td>
                             </tr>
                         )
