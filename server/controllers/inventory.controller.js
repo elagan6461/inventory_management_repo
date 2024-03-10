@@ -19,6 +19,13 @@ module.exports = {
                 res.status(500).json(err)
             })
     },
+    findOneByTitle: (req, res) => {
+        Inventory.findOne({title: req.params.title})
+                .then((oneItem) => {
+                    res.status(200).json(oneItem)
+                })
+                .catch((err) => {res.status(500).json(err)})
+    },
     createItem: (req, res) => {
         Inventory.create(req.body)
             .then((newItem) => {
