@@ -26,7 +26,7 @@ const SearchInventory = (props) => {
             .then(res => {setItems(res.data);
                             setKeyword('');
                             console.log('searchfor item res.data = ', res.data);
-                            if(len(res.data)<1){setConfirmMessage('no items match your search')}
+                            setConfirmMessage('no items match your search'); //won't show unless there are no results
                         })
             .catch(err => {console.log('searchInventory searchForItem err: ', err);
                             setConfirmMessage('no items to display');})
@@ -51,19 +51,31 @@ const SearchInventory = (props) => {
 
         <div>
             {items!=''?
-                items.map((item) => {
-                    return (
-                        <div key={item._id}>
-                            <p>Title: {item.title}</p>
-                            <p>Description: {item.description}</p>
-                            <p>Quantity: {item.quantity}</p>
-                            <p>
-                                <Link to={`/updateItem/${item._id}`} className='look_like_a_button'>Edit</Link>
-                                <button onClick={(e) => deleteItem(item._id)} className='look_like_a_button'>Delete</button>
-                            </p>
-                        </div>
-                    )}
-                        )
+                <table id='inventory_list'>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Stock</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items.map((item) => {
+                            return(
+                                <tr key={item._id}>
+                                    <td>{item.title}</td>
+                                    <td>{item.description}</td>
+                                    <td>{item.quantity}</td>
+                                    <td>
+                                        <Link to={`/updateItem/${item._id}`} className='look_like_a_button'>Edit</Link>
+                                        <button onClick={(e) => deleteItem(item._id)} className='look_like_a_button'>Delete</button>
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
                 :<p className='yellowWords'>{confirmMessage}</p>}
         </div>
 
