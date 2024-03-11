@@ -26,7 +26,7 @@ const AddItem = (props) => {
                         setDescription('');
                         setQuantity(0);
                     })
-            .catch(err => {console.log('newstore createstore err: ', err)
+            .catch(err => {console.log('additem createnewitem err: ', err)
                     setErrors(err.response.data.errors)
         })
     }
