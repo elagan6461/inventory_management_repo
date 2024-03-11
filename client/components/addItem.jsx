@@ -50,7 +50,7 @@ const AddItem = (props) => {
                         value = {title}/>
                 {
                     errors.title?
-                    <p>{errors.title.message}</p>:
+                    <p className='errorMessages'>{errors.title.message}</p>:
                     null
                 }
             </div>
@@ -63,7 +63,7 @@ const AddItem = (props) => {
                         value = {description}/>
                 {
                     errors.description?
-                    <p>{errors.description.message}</p>:
+                    <p className='errorMessages'>{errors.description.message}</p>:
                     null
                 }
             </div>
@@ -76,7 +76,7 @@ const AddItem = (props) => {
                         value = {quantity}/>
                 {
                     errors.quantity?
-                    <p>{errors.quantity.message}</p>:
+                    <p className='errorMessages'>{errors.quantity.message}</p>:
                     null
                 }
             </div>
