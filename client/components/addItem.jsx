@@ -30,7 +30,7 @@ const AddItem = (props) => {
 
     return(
         <>
-        <h3>Add An Item</h3>
+        <h1>Add An Item</h1>
         <nav>
             <Link to={'/home'}className='look_like_a_button'>Home</Link>
             <Link to={'/inventoryList'}className='look_like_a_button'>Inventory List</Link>

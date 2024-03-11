@@ -16,7 +16,7 @@ const InventoryList = (props) => {
 
     return (
         <>
-            <h1>Current Inventory:</h1>
+            <h1>Current Inventory</h1>
             <nav>
                 <Link to='/home' className='look_like_a_button'>Home</Link>
                 {/* <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** --> */}
