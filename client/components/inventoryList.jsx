@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 
 const InventoryList = (props) => {
     const { inventory, setInventory } = props;
-    const [ currentDisplayList, setCurrentDisplayList] = useState(inventory);
+    const [ currentDisplayList, setCurrentDisplayList] = useState([]);
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/allItems")
             .then((res) => {
                 setInventory(res.data);
+                setCurrentDisplayList(res.data);
             })
             .catch((err) => {
                 console.log('get all inventory error: ', err);
