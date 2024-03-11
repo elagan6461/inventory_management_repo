@@ -6,7 +6,7 @@ import './App.css'
 
 import Home from '/components/home.jsx'
 import InventoryList from '/components/inventoryList'
-import SearchInventory from '/components/searchInventory'
+// import SearchInventory from '/components/searchInventory'
 import UpdateItem from '/components/updateItem'
 import AddItem from '/components/addItem'
 
@@ -30,7 +30,7 @@ function App() {
       <Routes>
         <Route path='/home' default element={<Home/>}/>
         <Route path='/inventoryList' element={<InventoryList inventory={inventory} setInventory={setInventory}/>}/>
-        <Route path='/searchInventory' element={<SearchInventory inventory={inventory} setInventory={setInventory}/>}/>
+        {/* <Route path='/searchInventory' element={<SearchInventory inventory={inventory} setInventory={setInventory}/>}/> */}
         <Route path='/addItem' element={<AddItem inventory={inventory} setInventory={setInventory}/>}/>
         <Route path='/updateItem/:id' element={<UpdateItem inventory={inventory} setInventory={setInventory}/>}/>
       </Routes>

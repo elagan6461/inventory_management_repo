@@ -60,7 +60,7 @@ const UpdateItem = (props) => {
         <nav>
             <Link to='/home' className='look_like_a_button'>Home</Link>
             <Link to='/inventoryList' className='look_like_a_button'>Inventory List</Link>
-            <Link to='/searchInventory' className='look_like_a_button'>Search</Link>
+            {/* <Link to='/searchInventory' className='look_like_a_button'>Search</Link> */}
             <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
         </nav>
 
