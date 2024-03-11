@@ -83,7 +83,7 @@ const UpdateItem = (props) => {
                         value = {quantity}/>
             </div> 
             <button onClick="(e) => updateItem" className='look_like_a_button'>Update Item</button>
-            <button onClick="(e) => deleteItem(item._id)" className='look_like_a_button'>Delete</button>
+            <button onClick={(e) => deleteItem(item._id)} className='look_like_a_button'>Delete</button>
         </section>
         </>
     )

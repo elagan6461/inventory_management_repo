@@ -10,7 +10,7 @@ const SearchInventory = (props) => {
     const deleteItem = (id) => {
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
             .then(res => {
-                console.log(`${title} was deleted`);
+                console.log(`delete successful`);
                 setInventory(inventory.filter(item => id!=item._id));
             })
             .catch(err => console.log('searchInventory deleteItem err: ', err))
