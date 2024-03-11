@@ -34,9 +34,9 @@ const UpdateItem = (props) => {
 
         axios.put('http://localhost:8000/api/updateItem/' + id, updatedItem)
             .then((res) => {
-                    // setTitle('');
-                    // setDescription('');
-                    // setQuantity(0);
+                    setTitle('');
+                    setDescription('');
+                    setQuantity(0);
                     console.log(res);
                     navigate('/home')
                 })
@@ -46,15 +46,12 @@ const UpdateItem = (props) => {
     }
     
             
-    const deleteItem = (id, title) => {
-        // e.preventDefault();
+    const deleteItem = () => {
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
-            .then(res => {
-                console.log(`${title} was deleted`);
-                setInventory(inventory.filter(item => item._id!=id));
+            .then(() => {
                 navigate('/home');
             })
-            .catch(err => console.log('inventoryList deleteItem err: ', err))
+            .catch(console.log(err))
     }
 
     return(
@@ -92,16 +89,11 @@ const UpdateItem = (props) => {
                             onChange = {(e) => setQuantity(e.target.value)}
                             value = {quantity}/>
                     </div>
+                    <div id='updateButtons'>
                     <button className='look_like_a_button'>Update Item</button>
+                    <button className='look_like_a_button'  onClick={deleteItem}>Delete</button>
+                    </div> 
                 </form>   
-            </div>
-            <div id='updateButtons'>
-                {/* <button className='look_like_a_button' onClick={(e) => updateItem}>Update Item</button> */}
-                <button className='look_like_a_button'  onClick={(e) => deleteItem(id, title)}>Delete</button>
-            </div> 
-            <div id='updateButtons'>
-            <button onClick="(e) => updateItem" className='look_like_a_button'>Update Item</button>
-            <button onClick={(e) => deleteItem(item._id)} className='look_like_a_button'>Delete</button>
             </div>
         </section>
         </>
