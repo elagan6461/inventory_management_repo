@@ -98,6 +98,10 @@ const UpdateItem = (props) => {
                 {/* <button className='look_like_a_button' onClick={(e) => updateItem}>Update Item</button> */}
                 <button className='look_like_a_button'  onClick={(e) => deleteItem(item._id)}>Delete</button>
             </div> 
+            <div id='updateButtons'>
+            <button onClick="(e) => updateItem" className='look_like_a_button'>Update Item</button>
+            <button onClick={(e) => deleteItem(item._id)} className='look_like_a_button'>Delete</button>
+            </div>
         </section>
         </>
     )

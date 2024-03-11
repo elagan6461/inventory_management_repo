@@ -42,12 +42,13 @@ const UpdateItem = (props) => {
     }
     
             
-    const deleteItem = (id) => {
-        e.preventDefault();
+    const deleteItem = (id, title) => {
+        // e.preventDefault();
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
             .then(res => {
                 console.log(`${title} was deleted`);
-                setInventory(inventory.filter(item => id!=item._id));
+                setInventory(inventory.filter(item => item._id!=id));
+                navigate('/home');
             })
             .catch(err => console.log('inventoryList deleteItem err: ', err))
     }
@@ -89,7 +90,7 @@ const UpdateItem = (props) => {
             </div>
             <div id='updateButtons'>
                 <button className='look_like_a_button' onClick={(e) => updateItem}>Update Item</button>
-                <button className='look_like_a_button'  onClick={(e) => deleteItem(item._id)}>Delete</button>
+                <button className='look_like_a_button'  onClick={(e) => deleteItem(id, title)}>Delete</button>
             </div>
             
         </section>
