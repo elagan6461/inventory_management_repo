@@ -90,8 +90,8 @@ const UpdateItem = (props) => {
                             value = {quantity}/>
                     </div>
                     <div id='updateButtons'>
-                    <button className='look_like_a_button'>Update Item</button>
-                    <button className='look_like_a_button'  onClick={deleteItem}>Delete</button>
+                        <button className='look_like_a_button'>Update Item</button>
+                        <button className='look_like_a_button'  onClick={deleteItem}>Delete</button>
                     </div> 
                 </form>   
             </div>
