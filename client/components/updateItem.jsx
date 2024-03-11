@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {Link, useParams} from 'react-router-dom'
 
@@ -7,39 +7,36 @@ const UpdateItem = (props) => {
 
     const {id} = useParams();
 
-    const {title, setTitle} = useState('');
-    const {description, setDescription} = useState('');
-    const {quantity, setQuantity} = useState(0);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [quantity, setQuantity] = useState(0);
     
-    const updateItem = (e) =>{
+    useEffect(() => {
+    axios.get('http://localhost:8000/api/getOneItem/' + id)
+        .then(res => {setTitle(res.data.title);
+                    setDescription(res.data.description);
+                    setQuantity(res.data.quantity);
+        })
+        .catch(err => console.log('updateItem getOneItem:id err: ', err))
+    },[])
+    
+    const updateItem = (e) => {
         e.preventDefault();
 
-        useEffect(() => {
-            axios.get('http://localhost:8000/api/getOneItem/' + id)
-                .then(res => {setTitle(res.data.title);
-                            setDescription(res.data.description);
-                            setQuantity(res.data.quantity);
-                })
-                .catch(err => console.log('updateItem getOneItem err: ', err))
-        },[])
-    
-        const updateItem = (e) => {
-            e.preventDefault();
-    
-            const updatedItem = {
-                title,
-                description,
-                quantity
-            }
-    
-            axios.put('http://localhost:8000/api/updateItem/' + id, updatedItem)
-                .then(res => {
-                        setTitle('');
-                        setDescription('');
-                        setQuantity(0);})
-                .catch(err => {console.log('updateItem updateItem err: ', err)})
+        const updatedItem = {
+            title,
+            description,
+            quantity
         }
+
+        axios.put('http://localhost:8000/api/updateItem/' + id, updatedItem)
+            .then(res => {
+                    setTitle('');
+                    setDescription('');
+                    setQuantity(0);})
+            .catch(err => {console.log('updateItem updateItem err: ', err)})
     }
+    
             
     const deleteItem = (id) => {
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
@@ -52,36 +49,44 @@ const UpdateItem = (props) => {
 
     return(
         <>
-        <h3>Update An Item</h3>
+        <h1>Update An Item</h1>
         <nav>
-            <Link to='/home'>Home</Link>
-            <Link to='/inventoryList'>Inventory List</Link>
-            <Link to='/searchInventory'>Search</Link>
-            <Link to='/addItem'>Add Item</Link>
+            <Link to='/home' className='look_like_a_button'>Home</Link>
+            <Link to='/inventoryList' className='look_like_a_button'>Inventory List</Link>
+            <Link to='/searchInventory' className='look_like_a_button'>Search</Link>
+            <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
         </nav>
 
-        <section>
-            <label for="title">Item Name: </label>
-            <input type='text'
-                    onChange = "(e) => setTitle(e.target.value)"
-                    value = {title}/>
-
-            <label for="description">Description: </label>
-            <input type='textarea'
-                    cols="20"
-                    rows="50"
-                    onChange = "(e) => setDescription(e.target.value)"
-                    value = {description}/>
-                            
-            <label for="quantity">Quantity: </label>
-            <input type='number'
-                    min="0"
-                    step="1"
-                    onChange = "(e) => setQuantity(e.target.value)"
-                    value = {quantity}/>
-
-            <button onClick="(e) => updateItem">Update Item</button>
-            <button onClick="(e) => deleteItem(item._id)">Delete</button>
+        <section id='updateArea'>
+            <div id='updateInput'>
+                <div className='updateItem'>
+                    <label htmlFor="title">Item Name: </label>
+                    <input type='text'
+                            onChange = {(e) => setTitle(e.target.value)}
+                            value = {title}/>                    
+                </div>
+                <div className='updateItem'>
+                    <label htmlFor="description">Description: </label>
+                    <input type='textarea'
+                        cols="20"
+                        rows="50"
+                        onChange = {(e) => setDescription(e.target.value)}
+                        value = {description}/>
+                </div>
+                <div className='updateItem'>
+                    <label htmlFor="quantity">Quantity: </label>
+                    <input type='number'
+                        min="0"
+                        step="1"
+                        onChange = {(e) => setQuantity(e.target.value)}
+                        value = {quantity}/>
+                </div>
+            </div>
+            <div id='updateButtons'>
+                <button className='look_like_a_button' onClick={(e) => updateItem}>Update Item</button>
+                <button className='look_like_a_button'  onClick={(e) => deleteItem(item._id)}>Delete</button>
+            </div>
+            
         </section>
         </>
     )
