@@ -19,10 +19,10 @@ module.exports = {
                 res.status(500).json(err)
             })
     },
-    findOneByTitle: (req, res) => {
-        Inventory.findOne({title: req.params.title})
-                .then((oneItem) => {
-                    res.status(200).json(oneItem)
+    findByKeyword: (req, res) => {
+        Inventory.find({title:req.params.keyword})
+                .then((itemList) => {
+                    res.status(200).json(itemList)
                 })
                 .catch((err) => {res.status(500).json(err)})
     },

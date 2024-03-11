@@ -3,29 +3,33 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 
 const SearchInventory = (props) => {
-    const [item, setItem] = useState('')
-    const [title, setTitle] = useState('')
+    const [items, setItems] = useState('')
+    const [keyword, setKeyword] = useState('')
     const { inventory, setInventory } = props;
-    
+    const [confirmMessage, setConfirmMessage] = useState('Search results will appear here');
+
     const deleteItem = (id) => {
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
             .then(res => {
                 console.log(`delete successful`);
                 setInventory(inventory.filter(item => id!=item._id));
+                setItems('');
+                setConfirmMessage('delete successful');
             })
             .catch(err => console.log('searchInventory deleteItem err: ', err))
     }
 
-    const searchForItem = (e) =>{
+    const searchForItems = (e) =>{
         e.preventDefault();
-        console.log('searchforitem title: ', title, typeof(title));
-        axios.get('http://localhost:8000/api/findOneByTitle', title)
-            .then(res => {setItem(res.data);
-                            setTitle('item name');
+        console.log('searchforitem title: ', keyword, typeof(keyword));
+        axios.get('http://localhost:8000/api/findByKeyword/'+ keyword)
+            .then(res => {setItems(res.data);
+                            setKeyword('');
                             console.log('searchfor item res.data = ', res.data);
-                            console.log('searchforitem res = ', res);
+                            setConfirmMessage('no items match your search'); //won't show unless there are no results
                         })
-            .catch(err => {console.log('searchInventory searchForItem err: ', err);})
+            .catch(err => {console.log('searchInventory searchForItem err: ', err);
+                            setConfirmMessage('no items to display');})
     }
 
     return (
@@ -39,13 +43,43 @@ const SearchInventory = (props) => {
             <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
         </nav>
 
-        <form onSubmit={searchForItem}>
-            <label htmlFor="title">Search for </label>
-            <input type="text" name="title" value={title} onChange={e=>setTitle(e.target.value)}/>
+        <form onSubmit={searchForItems}>
+            <label htmlFor="keyword" className='greenWords'>Search by Item Name: </label>
+            <input type="text" name="keyword" value={keyword} onChange={e=>setKeyword(e.target.value)}/>
             <button className='look_like_a_button'>Search</button>
         </form>
 
         <div>
+            {items!=''?
+                <table id='inventory_list'>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Stock</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items.map((item) => {
+                            return(
+                                <tr key={item._id}>
+                                    <td>{item.title}</td>
+                                    <td>{item.description}</td>
+                                    <td>{item.quantity}</td>
+                                    <td>
+                                        <Link to={`/updateItem/${item._id}`} className='look_like_a_button'>Edit</Link>
+                                        <button onClick={(e) => deleteItem(item._id)} className='look_like_a_button'>Delete</button>
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+                :<p className='yellowWords'>{confirmMessage}</p>}
+        </div>
+
+        {/* <div>
             {item!='' ?  
                 <div>
                     <div>
@@ -59,7 +93,7 @@ const SearchInventory = (props) => {
                     </div>
                 </div>
                 : null}
-        </div>
+        </div> */}
         </>
     )
 }

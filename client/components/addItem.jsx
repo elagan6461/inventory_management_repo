@@ -26,7 +26,7 @@ const AddItem = (props) => {
                         setDescription('');
                         setQuantity(0);
                     })
-            .catch(err => {console.log('newstore createstore err: ', err)
+            .catch(err => {console.log('additem createnewitem err: ', err)
                     setErrors(err.response.data.errors)
         })
     }
@@ -37,8 +37,7 @@ const AddItem = (props) => {
         <nav>
             <Link to={'/home'}className='look_like_a_button'>Home</Link>
             <Link to={'/inventoryList'}className='look_like_a_button'>Inventory List</Link>
-            {/* <Link to={'/searchInventory'}className='look_like_a_button'>Search</Link> */}
-            {/* disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** */}
+            <Link to={'/searchInventory'}className='look_like_a_button'>Search</Link>
             <Link to={'/addItem'} disabled className='disabled_button'>Add Item</Link>
         </nav>
 

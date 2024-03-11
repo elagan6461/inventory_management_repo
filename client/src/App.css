@@ -44,7 +44,9 @@ td{
   color:red;
   margin:0 0 10px 0;
 }
-
+.greenWords{
+  color:#3fa359;
+}
 .look_like_a_button{
   border:1px #3fa359 solid;
   padding:2px 5px;
@@ -84,9 +86,11 @@ td{
   flex-direction: column;
   align-items: center;
 }
-
 .form_field{
   padding: 5px;
+}
+.yellowWords{
+  color:#b4b415;
 }
 
 /*********************************************************************
