@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Home = (props) => {
-    const {inventory, setInventory} = props;
-
     return (
         <>
         <h1>Inventory Tracker</h1>

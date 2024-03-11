@@ -1,28 +1,28 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import {Link, useParams, useNavigate} from 'react-router-dom'
+import {useNavigate, useParams, Link} from 'react-router-dom'
 
 const UpdateItem = (props) => {
-    const {inventory, setInventory} = props;
-
-    const {id} = useParams();
-    const navigate = useNavigate();
-
+    const navigate = useNavigate()
+    const {id} = useParams()
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [quantity, setQuantity] = useState(0);
     
     useEffect(() => {
-    axios.get('http://localhost:8000/api/findOneItem/' + id)
-        .then(res => {setTitle(res.data.title);
-                    setDescription(res.data.description);
-                    setQuantity(res.data.quantity);
+    axios.get('http://localhost:8000/api/findOneItem/'+ id)
+        .then((res) => {
+            setTitle(res.data.title)
+            setDescription(res.data.description)
+            setQuantity(res.data.quantity)
         })
-        .catch(err => console.log('updateItem getOneItem:id err: ', err))
-    },[])
+        .catch((err) => {
+            console.log(err);
+        })
+    }, [])
     
-    const updateItem = () => {
-        // e.preventDefault();
+    const updateItem = (e) => {
+        e.preventDefault();
 
         const updatedItem = {
             title,
@@ -30,15 +30,19 @@ const UpdateItem = (props) => {
             quantity
         }
 
-        console.log('update item updatedItem = ', updatedItem)
+        // console.log('update item updatedItem = ', updatedItem)
 
         axios.put('http://localhost:8000/api/updateItem/' + id, updatedItem)
-            .then(res => {
-                    setTitle('');
-                    setDescription('');
-                    setQuantity(0);
-                    navigate('/home');})
-            .catch(err => {console.log('updateItem updateItem err: ', err)})
+            .then((res) => {
+                    // setTitle('');
+                    // setDescription('');
+                    // setQuantity(0);
+                    console.log(res);
+                    navigate('/home')
+                })
+            .catch((err) => {
+                console.log('updateItem updateItem err: ', err)
+            })
     }
     
             
@@ -65,34 +69,40 @@ const UpdateItem = (props) => {
 
         <section id='updateArea'>
             <div id='updateInput'>
-                <div className='updateItem'>
-                    <label htmlFor="title">Item Name: </label>
-                    <input type='text'
-                            onChange = {(e) => setTitle(e.target.value)}
-                            value = {title}/>                    
-                </div>
-                <div className='updateItem'>
-                    <label htmlFor="description">Description: </label>
-                    <input type='textarea'
-                        cols="20"
-                        rows="50"
-                        onChange = {(e) => setDescription(e.target.value)}
-                        value = {description}/>
-                </div>
-                <div className='updateItem'>
-                    <label htmlFor="quantity">Quantity: </label>
-                    <input type='number'
-                        min="0"
-                        step="1"
-                        onChange = {(e) => setQuantity(e.target.value)}
-                        value = {quantity}/>
-                </div>
+                <form onSubmit={updateItem}>
+                    <div className='updateItem'>
+                        <label htmlFor="title">Item Name: </label>
+                        <input type='text'
+                                onChange = {(e) => setTitle(e.target.value)}
+                                value = {title}/>                    
+                    </div>
+                    <div className='updateItem'>
+                        <label htmlFor="description">Description: </label>
+                        <input type='textarea'
+                            cols="20"
+                            rows="50"
+                            onChange = {(e) => setDescription(e.target.value)}
+                            value = {description}/>
+                    </div>
+                    <div className='updateItem'>
+                        <label htmlFor="quantity">Quantity: </label>
+                        <input type='number'
+                            min="0"
+                            step="1"
+                            onChange = {(e) => setQuantity(e.target.value)}
+                            value = {quantity}/>
+                    </div>
+                    <button className='look_like_a_button'>Update Item</button>
+                </form>   
             </div>
             <div id='updateButtons'>
-                <button className='look_like_a_button' onClick={(e) => updateItem}>Update Item</button>
+                {/* <button className='look_like_a_button' onClick={(e) => updateItem}>Update Item</button> */}
                 <button className='look_like_a_button'  onClick={(e) => deleteItem(id, title)}>Delete</button>
+            </div> 
+            <div id='updateButtons'>
+            <button onClick="(e) => updateItem" className='look_like_a_button'>Update Item</button>
+            <button onClick={(e) => deleteItem(item._id)} className='look_like_a_button'>Delete</button>
             </div>
-            
         </section>
         </>
     )

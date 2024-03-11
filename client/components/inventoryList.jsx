@@ -5,6 +5,16 @@ import { Link } from 'react-router-dom';
 const InventoryList = (props) => {
     const { inventory, setInventory } = props;
     
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/allItems")
+            .then((res) => {
+                setInventory(res.data);
+            })
+            .catch((err) => {
+                console.log('get all inventory error: ', err);
+            })
+      }, [])
+
     const deleteItem = (id) => {
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
             .then(res => {

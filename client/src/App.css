@@ -35,22 +35,10 @@ td{
   color:black;
 }
 
+
 /*********************************************************************
                                                           CLASSES
 **********************************************************************/
-
-.disabled_button{
-  border:1px #3fa359 solid;
-  padding:5px;
-  color:#3fa359;
-  border-radius: 5px;
-  opacity: .25;
-  cursor: default;
-}
-.disabled_button:hover{
-  color:#3fa359;
-  opacity:.25;
-}
 .look_like_a_button{
   border:1px #3fa359 solid;
   padding:2px 5px;
@@ -68,9 +56,33 @@ td{
 .look_like_a_button:active{
   background-color: #3fa359;
 }
-.updateItem{
+.disabled_button{
+  border:1px #3fa359 solid;
+  padding:5px;
   color:#3fa359;
+  border-radius: 5px;
+  opacity: .25;
+  cursor: default;
 }
+.disabled_button:hover{
+  color:#3fa359;
+  opacity:.25;
+}
+
+.form{
+  padding: 25px;
+  border: 2px solid black;
+  background-color: #c0d1c5;
+  color: black;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form_field{
+  padding: 5px;
+}
+
 /*********************************************************************
                                                             IDs
 **********************************************************************/
@@ -85,12 +97,4 @@ td{
   /* justify-content: center; */
   align-items: center;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-}
-
-#updateInput{
-  display:flex;
-  flex-direction: column;
-  justify-content:flex-start;
-  align-items: center;
-  margin-bottom: 10px;
 }
