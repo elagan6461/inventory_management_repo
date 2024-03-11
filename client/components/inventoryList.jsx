@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 const InventoryList = (props) => {
     const { inventory, setInventory } = props;
     const [ currentDisplayList, setCurrentDisplayList] = useState(inventory);
-    let tableTitle = 'Full Inventory'
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/allItems")
@@ -47,13 +46,10 @@ const InventoryList = (props) => {
                 <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
             </nav>
             <div id='displayChoices'>
-                <button className='look_like_a_button' onClick={e => getFullInventory()}>All Inventory</button>
-                <button className='look_like_a_button' onClick={e => getLowInventory()}>Low Inventory</button>
+                <button className='look_like_a_button' onClick={e => getFullInventory()}>All</button>
+                <button className='look_like_a_button' onClick={e => getLowInventory()}>Low Stock Only</button>
             </div>
-
-            {tableTitle=='Full Inventory'?
-                <p>Full Inventory</p>
-                :<p>Low Inventory</p>}
+            
             <table id='inventory_list'>
                 <thead>
                     <tr>

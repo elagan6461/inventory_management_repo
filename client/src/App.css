@@ -18,6 +18,7 @@ table{
   border: 2px solid black;
   width:100%;
   border-collapse: collapse;
+  margin-top:10px;
 }
 th{
   border-bottom: 2px solid black;
