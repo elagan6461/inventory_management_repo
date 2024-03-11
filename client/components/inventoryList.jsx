@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const InventoryList = (props) => {
     const { inventory, setInventory } = props;
+    const [ currentDisplayList, setCurrentDisplayList] = useState(inventory);
+    let tableTitle = 'Full Inventory'
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/allItems")
@@ -14,6 +16,16 @@ const InventoryList = (props) => {
                 console.log('get all inventory error: ', err);
             })
     }, [])
+
+    const getLowInventory = (e) => {
+        axios.get('http://localhost:8000/api/getLowInventory')
+            .then(res => {setCurrentDisplayList(res.data)})
+            .catch(err => console.log('inventoryList getLowInventory err: ', err))
+    }
+
+    const getFullInventory = e => {
+        setCurrentDisplayList(inventory)
+    }
 
     const deleteItem = (id) => {
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
@@ -34,7 +46,14 @@ const InventoryList = (props) => {
                 {/* <Link to='/searchInventory' className='look_like_a_button'>Search</Link> */}
                 <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
             </nav>
+            <div id='displayChoices'>
+                <button className='look_like_a_button' onClick={e => getFullInventory()}>All Inventory</button>
+                <button className='look_like_a_button' onClick={e => getLowInventory()}>Low Inventory</button>
+            </div>
 
+            {tableTitle=='Full Inventory'?
+                <p>Full Inventory</p>
+                :<p>Low Inventory</p>}
             <table id='inventory_list'>
                 <thead>
                     <tr>
@@ -45,7 +64,7 @@ const InventoryList = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {inventory.map((item) => {
+                    {currentDisplayList.map((item) => {
                         return (
                             <tr key={item._id}>
                                 <td>{item.title}</td>
