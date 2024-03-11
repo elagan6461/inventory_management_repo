@@ -26,6 +26,11 @@ module.exports = {
                 })
                 .catch((err) => {res.status(500).json(err)})
     },
+    getLowInventory: (req, res) => {
+            Inventory.find({quantity:{$lte:19}})
+                    .then(lowInventory => res.status(200).json(lowInventory))
+                    .catch(err => res.status(500).json(err))
+    },
     createItem: (req, res) => {
         Inventory.create(req.body)
             .then((newItem) => {

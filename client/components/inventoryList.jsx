@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const InventoryList = (props) => {
     const { inventory, setInventory } = props;
-    
+    const [ currentDisplayList, setCurrentDisplayList] = useState(inventory);
+    let tableTitle = 'Full Inventory'
+
     useEffect(() => {
         axios.get("http://localhost:8000/api/allItems")
             .then((res) => {
@@ -13,13 +15,23 @@ const InventoryList = (props) => {
             .catch((err) => {
                 console.log('get all inventory error: ', err);
             })
-      }, [])
+    }, [])
+
+    const getLowInventory = (e) => {
+        axios.get('http://localhost:8000/api/getLowInventory')
+            .then(res => {setCurrentDisplayList(res.data)})
+            .catch(err => console.log('inventoryList getLowInventory err: ', err))
+    }
+
+    const getFullInventory = e => {
+        setCurrentDisplayList(inventory)
+    }
 
     const deleteItem = (id) => {
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
             .then(res => {
                 console.log(`delete successful`);
-                setInventory(inventory.filter(item => id!=item._id));
+                setInventory(inventory.filter(item => id != item._id));
             })
             .catch(err => console.log('inventoryList deleteItem err: ', err))
     }
@@ -31,10 +43,17 @@ const InventoryList = (props) => {
                 <Link to='/home' className='look_like_a_button'>Home</Link>
                 {/* <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** --> */}
                 <Link to='/inventoryList' disabled className='disabled_button'>Inventory List</Link>
-                <Link to='/searchInventory' className='look_like_a_button'>Search</Link>
+                {/* <Link to='/searchInventory' className='look_like_a_button'>Search</Link> */}
                 <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
             </nav>
-            
+            <div id='displayChoices'>
+                <button className='look_like_a_button' onClick={e => getFullInventory()}>All Inventory</button>
+                <button className='look_like_a_button' onClick={e => getLowInventory()}>Low Inventory</button>
+            </div>
+
+            {tableTitle=='Full Inventory'?
+                <p>Full Inventory</p>
+                :<p>Low Inventory</p>}
             <table id='inventory_list'>
                 <thead>
                     <tr>
@@ -45,21 +64,21 @@ const InventoryList = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {inventory.map((item) => {
+                    {currentDisplayList.map((item) => {
                         return (
                             <tr key={item._id}>
                                 <td>{item.title}</td>
                                 <td>{item.description}</td>
                                 <td>{item.quantity}</td>
                                 <td>
-                                    <Link to={`/updateItem/${item._id}`}className='look_like_a_button'>Edit</Link>
+                                    <Link to={`/updateItem/${item._id}`} className='look_like_a_button'>Edit</Link>
                                     <button onClick={(e) => deleteItem(item._id)} className='look_like_a_button'>Delete</button>
                                 </td>
                             </tr>
                         )
                     })}
                 </tbody>
-            </table> 
+            </table>
         </>
     );
 }
