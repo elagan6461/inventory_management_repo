@@ -8,6 +8,7 @@ const UpdateItem = (props) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [quantity, setQuantity] = useState(0);
+    const [errors, setErrors] = useState('')
     
     useEffect(() => {
     axios.get('http://localhost:8000/api/findOneItem/'+ id)
@@ -41,7 +42,8 @@ const UpdateItem = (props) => {
                     navigate('/home')
                 })
             .catch((err) => {
-                console.log('updateItem updateItem err: ', err)
+                console.log('updateItem updateItem err: ', err);
+                setErrors(err.response.data.errors)
             })
     }
     
@@ -71,7 +73,8 @@ const UpdateItem = (props) => {
                         <label htmlFor="title">Item Name: </label>
                         <input type='text'
                                 onChange = {(e) => setTitle(e.target.value)}
-                                value = {title}/>                    
+                                value = {title}/>
+                        {errors.title?<p className='errorMessages'>{errors.title.message}</p>:null}                    
                     </div>
                     <div className='updateItem'>
                         <label htmlFor="description">Description: </label>
@@ -80,14 +83,17 @@ const UpdateItem = (props) => {
                             rows="50"
                             onChange = {(e) => setDescription(e.target.value)}
                             value = {description}/>
+                        {errors.description?<p className='errorMessages'>{errors.description.message}</p>:null}
                     </div>
                     <div className='updateItem'>
                         <label htmlFor="quantity">Quantity: </label>
+                        
                         <input type='number'
                             min="0"
                             step="1"
                             onChange = {(e) => setQuantity(e.target.value)}
                             value = {quantity}/>
+                        {errors.quantity?<p className='errorMessages'>{errors.quantity.message}</p>:null}
                     </div>
                     <div id='updateButtons'>
                         <button className='look_like_a_button'>Update Item</button>
