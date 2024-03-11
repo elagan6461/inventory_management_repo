@@ -74,6 +74,9 @@ td{
   border: 2px solid black;
   background-color: #c0d1c5;
   color: black;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form_field{
