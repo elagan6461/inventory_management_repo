@@ -32,6 +32,7 @@ const InventoryList = (props) => {
             .then(res => {
                 console.log(`delete successful`);
                 setInventory(inventory.filter(item => id != item._id));
+                setCurrentDisplayList(currentDisplayList.filter(item=>id!=item._id))
             })
             .catch(err => console.log('inventoryList deleteItem err: ', err))
     }
@@ -43,7 +44,7 @@ const InventoryList = (props) => {
                 <Link to='/home' className='look_like_a_button'>Home</Link>
                 {/* <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** --> */}
                 <Link to='/inventoryList' disabled className='disabled_button'>Inventory List</Link>
-                {/* <Link to='/searchInventory' className='look_like_a_button'>Search</Link> */}
+                <Link to='/searchInventory' className='look_like_a_button'>Search</Link>
                 <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
             </nav>
             <div id='displayChoices'>
