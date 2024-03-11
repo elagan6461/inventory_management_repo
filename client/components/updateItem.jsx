@@ -1,18 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import {Link, useParams} from 'react-router-dom'
+import {Link, useParams, useNavigate} from 'react-router-dom'
 
 const UpdateItem = (props) => {
     const {inventory, setInventory} = props;
 
     const {id} = useParams();
+    const navigate = useNavigate();
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [quantity, setQuantity] = useState(0);
     
     useEffect(() => {
-    axios.get('http://localhost:8000/api/getOneItem/' + id)
+    axios.get('http://localhost:8000/api/findOneItem/' + id)
         .then(res => {setTitle(res.data.title);
                     setDescription(res.data.description);
                     setQuantity(res.data.quantity);
@@ -20,8 +21,8 @@ const UpdateItem = (props) => {
         .catch(err => console.log('updateItem getOneItem:id err: ', err))
     },[])
     
-    const updateItem = (e) => {
-        e.preventDefault();
+    const updateItem = () => {
+        // e.preventDefault();
 
         const updatedItem = {
             title,
@@ -29,16 +30,20 @@ const UpdateItem = (props) => {
             quantity
         }
 
+        console.log('update item updatedItem = ', updatedItem)
+
         axios.put('http://localhost:8000/api/updateItem/' + id, updatedItem)
             .then(res => {
                     setTitle('');
                     setDescription('');
-                    setQuantity(0);})
+                    setQuantity(0);
+                    navigate('/home');})
             .catch(err => {console.log('updateItem updateItem err: ', err)})
     }
     
             
     const deleteItem = (id) => {
+        e.preventDefault();
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
             .then(res => {
                 console.log(`${title} was deleted`);
