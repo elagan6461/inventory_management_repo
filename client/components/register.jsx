@@ -27,26 +27,28 @@ const Register = (props) => {
         <div>
             <h1>Inventory Management System</h1>
             <form onSubmit={submitHandler} className='form'>
-                <h2>Create an accout:</h2>
-                <div className='form_field'>
-                    <label>First Name:</label>
-                    <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                </div>
-                <div className='form_field'>
-                    <label>Last Name:</label>
-                    <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                </div>
-                <div className='form_field'>
-                    <label>Email:</label>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className='form_field'>
-                    <label>Password:</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
-                <div className='form_field'>
-                    <label>Confirm Password:</label>
-                    <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                <h2>Create an account:</h2>
+                <div id='registerInput'>
+                    <div className='form_field'>
+                        <label>First Name: </label>
+                        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                    </div>
+                    <div className='form_field'>
+                        <label>Last Name: </label>
+                        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                    </div>
+                    <div className='form_field'>
+                        <label>Email: </label>
+                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </div>
+                    <div className='form_field'>
+                        <label>Password: </label>
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </div>
+                    <div className='form_field'>
+                        <label>Confirm Password: </label>
+                        <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                    </div>
                 </div>
                 <button className='look_like_a_button'>Register</button>
                 <Link to={'/login'} className='look_like_a_button'>Have an account? Login here</Link>
