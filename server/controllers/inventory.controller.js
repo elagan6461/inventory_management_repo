@@ -20,7 +20,18 @@ module.exports = {
             })
     },
     findByKeyword: (req, res) => {
-        Inventory.find({title:req.params.keyword})
+        // Inventory.find({title:req.params.keyword})
+        // Inventory.find({ 'title': { $regex: '^' + req.params.keyword, $options: 'i' } })//case insensitive
+        Inventory.find({title: {$regex: '^.*'+req.params.keyword+'.*?$', $options:'i'}}) //keyword anywhere in title, case insensitive
+                .then((itemList) => {
+                    res.status(200).json(itemList)
+                })
+                .catch((err) => {res.status(500).json(err)})
+    },
+    findByDescription: (req, res) => {
+        // Inventory.find({title:req.params.keyword})
+        // Inventory.find({ 'title': { $regex: '^' + req.params.keyword, $options: 'i' } })//case insensitive
+        Inventory.find({description: {$regex: '^.*'+req.params.keyword+'.*?$', $options:'i'}}) //keyword anywhere in title, case insensitive
                 .then((itemList) => {
                     res.status(200).json(itemList)
                 })
