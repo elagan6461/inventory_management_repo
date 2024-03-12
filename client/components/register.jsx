@@ -9,6 +9,7 @@ const Register = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [errors, setErrors] = useState({})
 
     const submitHandler = (e) => {
         console.log('Submitted');
@@ -21,6 +22,7 @@ const Register = (props) => {
             })
             .catch((err) => {
                 console.log(err);
+                setErrors(err.response.data.error.errors)
             })
     }
     return(
@@ -32,22 +34,37 @@ const Register = (props) => {
                     <div className='form_field'>
                         <label>First Name: </label>
                         <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                        {errors.firstName?
+                        <p className='errorMessages'>{errors.firstName.message}</p>
+                        :null}
                     </div>
                     <div className='form_field'>
                         <label>Last Name: </label>
                         <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                        {errors.lastName?
+                        <p className='errorMessages'>{errors.lastName.message}</p>
+                        :null}
                     </div>
                     <div className='form_field'>
                         <label>Email: </label>
-                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/> 
+                        {errors.email?
+                        <p className='errorMessages'>{errors.email.message}</p>
+                        :null}
                     </div>
                     <div className='form_field'>
                         <label>Password: </label>
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        {errors.password?
+                        <p className='errorMessages'>{errors.password.message}</p>
+                        :null}
                     </div>
                     <div className='form_field'>
                         <label>Confirm Password: </label>
                         <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                        {errors.confirmPassword?
+                        <p className='errorMessages'>{errors.confirmPassword.message}</p>
+                        :null}
                     </div>
                 </div>
                 <button className='look_like_a_button'>Register</button>
