@@ -64,7 +64,7 @@ const SearchInventory = (props) => {
             <input type="text" name="tkeyword" value={tkeyword} onChange={e=>setTKeyword(e.target.value)}/>
             <button className='look_like_a_button'>Search</button>
         </form>
-        <p className='yellowWords'>Or</p>
+        <div className='searchOr'><p className='greenWords searchOr'>Or</p></div>
         <form onSubmit={searchByDescription}>
             <label htmlFor="dkeyword" className='greenWords'>Search by Description: </label>
             <input type="text" name="dkeyword" value={dkeyword} onChange={e=>setDKeyword(e.target.value)}/>
