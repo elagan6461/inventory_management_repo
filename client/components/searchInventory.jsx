@@ -7,9 +7,9 @@ const SearchInventory = (props) => {
     const [tkeyword, setTKeyword] = useState('')
     const [dkeyword, setDKeyword] = useState('')
     const { inventory, setInventory } = props;
-    const [confirmMessage, setConfirmMessage] = useState('Search results will appear here');
+    const [confirmMessage, setConfirmMessage] = useState('(Search results will appear here)');
     const navigate = useNavigate();
-    
+
     const deleteItem = (id) => {
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
             .then(res => {
