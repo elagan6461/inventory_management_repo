@@ -26,7 +26,7 @@ const AddItem = (props) => {
                         setTitle('');
                         setDescription('');
                         setQuantity(0);
-                        navigate('/home')
+                        navigate('/inventoryList')
                     })
             .catch(err => {console.log('additem createnewitem err: ', err)
                     setErrors(err.response.data.errors)

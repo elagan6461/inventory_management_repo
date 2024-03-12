@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const SearchInventory = (props) => {
     const [items, setItems] = useState('')
     const [tkeyword, setTKeyword] = useState('')
     const [dkeyword, setDKeyword] = useState('')
     const { inventory, setInventory } = props;
-    const [confirmMessage, setConfirmMessage] = useState('Search results will appear here');
+    const [confirmMessage, setConfirmMessage] = useState('(Search results will appear here)');
+    const navigate = useNavigate();
 
     const deleteItem = (id) => {
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
@@ -47,6 +48,13 @@ const SearchInventory = (props) => {
                             setConfirmMessage('no items to display');
                             setDKeyword('');})
     }
+    const logout = () => {
+        axios.post('http://localhost:8000/api/logoutUser', {}, {withCredentials:true})
+            .then(navigate('/'))
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     return (
         <>
@@ -57,6 +65,7 @@ const SearchInventory = (props) => {
             {/* <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** --> */}
             <Link to='/searchInventory' disabled className='disabled_button'>Search</Link>
             <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
+            <button onClick={logout} className='look_like_a_button'>Logout</button>
         </nav>
 
         <form onSubmit={searchForItems}>
@@ -64,7 +73,7 @@ const SearchInventory = (props) => {
             <input type="text" name="tkeyword" value={tkeyword} onChange={e=>setTKeyword(e.target.value)}/>
             <button className='look_like_a_button'>Search</button>
         </form>
-        <p className='yellowWords'>Or</p>
+        <div className='searchOr'><p className='greenWords searchOr'>Or</p></div>
         <form onSubmit={searchByDescription}>
             <label htmlFor="dkeyword" className='greenWords'>Search by Description: </label>
             <input type="text" name="dkeyword" value={dkeyword} onChange={e=>setDKeyword(e.target.value)}/>

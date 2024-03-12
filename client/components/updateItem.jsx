@@ -39,7 +39,7 @@ const UpdateItem = (props) => {
                     setDescription('');
                     setQuantity(0);
                     console.log(res);
-                    navigate('/home')
+                    navigate('/inventoryList')
                 })
             .catch((err) => {
                 console.log('updateItem updateItem err: ', err);
