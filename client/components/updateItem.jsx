@@ -56,6 +56,14 @@ const UpdateItem = (props) => {
             .catch(console.log(err))
     }
 
+    const logout = () => {
+        axios.post('http://localhost:8000/api/logoutUser', {}, {withCredentials:true})
+            .then(navigate('/'))
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     return(
         <>
         <h1>Update An Item</h1>
@@ -64,6 +72,7 @@ const UpdateItem = (props) => {
             <Link to='/inventoryList' className='look_like_a_button'>Inventory List</Link>
             <Link to='/searchInventory' className='look_like_a_button'>Search</Link>
             <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
+            <button onClick={logout} className='look_like_a_button'>Logout</button>
         </nav>
 
         <section id='updateArea'>
