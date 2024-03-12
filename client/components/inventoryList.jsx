@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const InventoryList = (props) => {
+    const navigate = useNavigate()
     const { inventory, setInventory } = props;
     const [ currentDisplayList, setCurrentDisplayList] = useState([]);
 
@@ -36,6 +37,13 @@ const InventoryList = (props) => {
             })
             .catch(err => console.log('inventoryList deleteItem err: ', err))
     }
+    const logout = () => {
+        axios.post('http://localhost:8000/api/logoutUser', {}, {withCredentials:true})
+            .then(navigate('/'))
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     return (
         <>
@@ -46,6 +54,7 @@ const InventoryList = (props) => {
                 <Link to='/inventoryList' disabled className='disabled_button'>Inventory List</Link>
                 <Link to='/searchInventory' className='look_like_a_button'>Search</Link>
                 <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
+                <button onClick={logout} className='look_like_a_button'>Logout</button>
             </nav>
             <div id='displayChoices'>
                 <button className='look_like_a_button' onClick={e => getFullInventory()}>All</button>
