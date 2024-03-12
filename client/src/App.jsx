@@ -9,6 +9,8 @@ import InventoryList from '/components/inventoryList'
 import SearchInventory from '/components/searchInventory'
 import UpdateItem from '/components/updateItem'
 import AddItem from '/components/addItem'
+import Register from '/components/register'
+import Login from '/components/login'
 
 function App() {
   const [inventory, setInventory] = useState()
@@ -28,6 +30,8 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
+        <Route index element={<Register/>}/>
+        <Route path='/login' default element={<Login/>}/>
         <Route path='/home' default element={<Home/>}/>
         <Route path='/inventoryList' element={<InventoryList inventory={inventory} setInventory={setInventory}/>}/>
         <Route path='/searchInventory' element={<SearchInventory inventory={inventory} setInventory={setInventory}/>}/>
