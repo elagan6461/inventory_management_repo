@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom'
 
 const SearchInventory = (props) => {
     const [items, setItems] = useState('')
-    const [keyword, setKeyword] = useState('')
+    const [tkeyword, setTKeyword] = useState('')
+    const [dkeyword, setDKeyword] = useState('')
     const { inventory, setInventory } = props;
     const [confirmMessage, setConfirmMessage] = useState('Search results will appear here');
 
@@ -21,15 +22,30 @@ const SearchInventory = (props) => {
 
     const searchForItems = (e) =>{
         e.preventDefault();
-        console.log('searchforitem title: ', keyword, typeof(keyword));
-        axios.get('http://localhost:8000/api/findByKeyword/'+ keyword)
+        axios.get('http://localhost:8000/api/findByKeyword/'+ tkeyword)
             .then(res => {setItems(res.data);
                             setKeyword('');
                             console.log('searchfor item res.data = ', res.data);
                             setConfirmMessage('no items match your search'); //won't show unless there are no results
+                            setTKeyword('')
                         })
             .catch(err => {console.log('searchInventory searchForItem err: ', err);
-                            setConfirmMessage('no items to display');})
+                            setConfirmMessage('no items to display');
+                            setTKeyword('');})
+    }
+
+    const searchByDescription = (e) =>{
+        e.preventDefault();
+        axios.get('http://localhost:8000/api/findByDescription/'+ dkeyword)
+            .then(res => {setItems(res.data);
+                            setKeyword('');
+                            console.log('searchfor item res.data = ', res.data);
+                            setConfirmMessage('no items match your search'); //won't show unless there are no results
+                            setDKeyword('');
+                        })
+            .catch(err => {console.log('searchInventory searchByDescription err: ', err);
+                            setConfirmMessage('no items to display');
+                            setDKeyword('');})
     }
 
     return (
@@ -44,8 +60,14 @@ const SearchInventory = (props) => {
         </nav>
 
         <form onSubmit={searchForItems}>
-            <label htmlFor="keyword" className='greenWords'>Search by Item Name: </label>
-            <input type="text" name="keyword" value={keyword} onChange={e=>setKeyword(e.target.value)}/>
+            <label htmlFor="tkeyword" className='greenWords'>Search by Item Name: </label>
+            <input type="text" name="tkeyword" value={tkeyword} onChange={e=>setTKeyword(e.target.value)}/>
+            <button className='look_like_a_button'>Search</button>
+        </form>
+        <p className='yellowWords'>Or</p>
+        <form onSubmit={searchByDescription}>
+            <label htmlFor="dkeyword" className='greenWords'>Search by Description: </label>
+            <input type="text" name="dkeyword" value={dkeyword} onChange={e=>setDKeyword(e.target.value)}/>
             <button className='look_like_a_button'>Search</button>
         </form>
 
