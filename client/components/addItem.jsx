@@ -26,6 +26,7 @@ const AddItem = (props) => {
                         setTitle('');
                         setDescription('');
                         setQuantity(0);
+                        navigate('/home')
                     })
             .catch(err => {console.log('additem createnewitem err: ', err)
                     setErrors(err.response.data.errors)
