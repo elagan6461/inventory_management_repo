@@ -28,7 +28,7 @@ const Login = (props) => {
                 <h2>Login</h2>
                 {
                     errors.length > 0?
-                    <p>{errors}</p>:
+                    <p className='errorMessages'>{errors}</p>:
                     null
                 }
                 <div className='form_field'>
