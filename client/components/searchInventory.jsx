@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const SearchInventory = (props) => {
     const [items, setItems] = useState('')
@@ -8,7 +8,8 @@ const SearchInventory = (props) => {
     const [dkeyword, setDKeyword] = useState('')
     const { inventory, setInventory } = props;
     const [confirmMessage, setConfirmMessage] = useState('Search results will appear here');
-
+    const navigate = useNavigate();
+    
     const deleteItem = (id) => {
         axios.delete('http://localhost:8000/api/deleteItem/' + id)
             .then(res => {
@@ -47,6 +48,13 @@ const SearchInventory = (props) => {
                             setConfirmMessage('no items to display');
                             setDKeyword('');})
     }
+    const logout = () => {
+        axios.post('http://localhost:8000/api/logoutUser', {}, {withCredentials:true})
+            .then(navigate('/'))
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     return (
         <>
@@ -57,6 +65,7 @@ const SearchInventory = (props) => {
             {/* <!--disabled link needs CSS to be visually obvious that it is disabled -- **FIX BEFORE SUBMIT** --> */}
             <Link to='/searchInventory' disabled className='disabled_button'>Search</Link>
             <Link to='/addItem' className='look_like_a_button'>Add Item</Link>
+            <button onClick={logout} className='look_like_a_button'>Logout</button>
         </nav>
 
         <form onSubmit={searchForItems}>
