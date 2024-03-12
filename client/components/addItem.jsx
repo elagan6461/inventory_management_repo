@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const AddItem = (props) => {
+    const navigate = useNavigate()
     const {inventory, setInventory} = props;
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -30,6 +31,13 @@ const AddItem = (props) => {
                     setErrors(err.response.data.errors)
         })
     }
+    const logout = () => {
+        axios.post('http://localhost:8000/api/logoutUser', {}, {withCredentials:true})
+            .then(navigate('/'))
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     return(
         <>
@@ -39,6 +47,7 @@ const AddItem = (props) => {
             <Link to={'/inventoryList'}className='look_like_a_button'>Inventory List</Link>
             <Link to={'/searchInventory'}className='look_like_a_button'>Search</Link>
             <Link to={'/addItem'} disabled className='disabled_button'>Add Item</Link>
+            <button onClick={logout} className='look_like_a_button'>Logout</button>
         </nav>
 
         <form onSubmit={createNewItem} className='form'>
