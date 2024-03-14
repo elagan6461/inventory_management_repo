@@ -17,7 +17,7 @@ const InventorySchema = new mongoose.Schema({
     quantity: {
         type: Number,
         required: [true, "Quantity is required"],
-        min: [1, "Quantity must be at least 0"],
+        min: [1, "Quantity must be at least 1"],
         max: [15000, "Quantity must not exceed 15000"]
     }
 
